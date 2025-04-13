@@ -26,7 +26,9 @@ While the structure may evolve, here's a general layout:
 This repo includes Python implementations of classic data structures from scratch, without using built-in types like `dict`, `set`, or `heapq`. Useful for educational purposes, interviews, or just brushing up.
 
 Implemented so far: <br> <!--✅⬜-->
-⬜ Linked List (Singly/Doubly/Circular) <br>
+✅ Singularly Linked List <br>
+⬜ Doubly Linked List <br>
+⬜ Circular Linked List <br>
 ⬜ Stack <br>
 ⬜ Queue (Regular/Circular/Priority) <br>
 ⬜ Graph (List/Matrix) <br>

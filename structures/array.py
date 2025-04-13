@@ -5,38 +5,38 @@ class Array:
 
     def __init__(self):
         """Initialize an empty array."""
-        self._data = []
+        self.__data = []
 
-    def append(self, value):
+    def append(self, data):
         """
         Append an element to the end of the array.
 
-        :param value: The value to append.
+        :param data: The value to append.
         """
-        self._data.append(value)
+        self.__data.append(data)
 
-    def insert(self, index, value):
+    def insert(self, index, data):
         """
         Insert a value at a specified index.
 
         :param index: Index at which to insert.
-        :param value: The value to insert.
+        :param data: The value to insert.
 
         :raises IndexError: If index is out of bounds.
         """
-        if index < 0 or index > len(self._data):
+        if index < 0 or index > len(self.__data):
             raise IndexError("Index out of bounds.")
-        self._data.insert(index, value)
+        self.__data.insert(index, data)
 
-    def remove(self, value):
+    def remove(self, data):
         """
         Remove the first occurrence of a value.
 
-        :param value: The value to remove.
+        :param data: The value to remove.
 
         :raises ValueError: If value is not in the array.
         """
-        self._data.remove(value)
+        self.__data.remove(data)
 
     def pop(self, index=-1):
         """
@@ -47,7 +47,7 @@ class Array:
 
         :raises IndexError: If index is out of bounds.
         """
-        return self._data.pop(index)
+        return self.__data.pop(index)
 
     def get(self, index):
         """
@@ -58,29 +58,29 @@ class Array:
 
         :raises IndexError: If index is out of bounds.
         """
-        return self._data[index]
+        return self.__data[index]
 
-    def set(self, index, value):
+    def set(self, index, data):
         """
         Set a value at a specific index.
 
         :param index: The index to update.
-        :param value: The new value.
+        :param data: The new value.
 
         :raises IndexError: If index is out of bounds.
         """
-        self._data[index] = value
+        self.__data[index] = data
 
     def size(self):
         """
         Get the number of elements in the array.
 
-        :return: int: The size of the array.
+        :return int: The size of the array.
         """
-        return len(self._data)
+        return len(self.__data)
 
     def __str__(self):
-        return str(self._data)
+        return str(self.__data)
 
     def __len__(self):
-        return len(self._data)
+        return len(self.__data)
