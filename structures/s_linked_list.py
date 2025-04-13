@@ -78,6 +78,8 @@ class SingularlyLinkedList:
         current = self.__head
         if current.data == data:
             self.__head = current.next
+        elif current.next is None:
+            raise ValueError("Value not found.")
         else:
             while current.next.data != data:
                 current = current.next
