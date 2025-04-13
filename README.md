@@ -16,6 +16,7 @@ While the structure may evolve, here's a general layout:
 - `algorithms/` – From-scratch basic algorithms.
 - `utils/` – Helper functions and modules.
 - `experiments/` – Small, self-contained scripts for testing.
+- `tests/` - Tests to ensure correctness of implementations.
 - `requirements.txt` – List of dependencies, if any.
 - `gitignore` - List of ignored files for git control.
 - `LICENSE` - MIT License.
