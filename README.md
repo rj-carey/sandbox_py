@@ -1,20 +1,62 @@
+
+---
 # 🐍 Python Sandbox 
+
 **A sandbox for random classes, model, scripts, etc.**
 
 Created and maintained by [@rj-carey](https://github.com/rj-carey)
 
+---
 ## 🧪 About
 This repository is a collection of miscellaneous Python code snippets, models, experiments, and small-scale projects. It's not meant to be production-ready code, but rather a space to try things out, learn, and iterate quickly.
 
 ## 📁 Project Structure
 While the structure may evolve, here's a general layout:
-- `models/` – From-scratch data structures and other custom model implementations.
+- `structures/` – From-scratch data structures.
 - `algorithms/` – From-scratch basic algorithms.
 - `utils/` – Helper functions and modules.
 - `experiments/` – Small, self-contained scripts for testing.
 - `requirements.txt` – List of dependencies, if any.
-- `gitignore` - 
+- `gitignore` - List of ignored files for git control.
+- `LICENSE` - MIT License.
 - `README.md` – You're here!
+
+## 🧱 Data Structures
+This repo includes Python implementations of classic data structures from scratch, without using built-in types like `dict`, `set`, or `heapq`. Useful for educational purposes, interviews, or just brushing up.
+
+Implemented so far: <br> <!--✅⬜-->
+⬜ Linked List (Singly/Doubly/Circular) <br>
+⬜ Stack <br>
+⬜ Queue (Regular/Circular/Priority) <br>
+⬜ Graph (List/Matrix) <br>
+⬜ Binary Tree <br>
+⬜ AVL Tree <br>
+⬜ Heap (Min/Max) <br>
+⬜ Hash Table
+
+Each module is self-contained and has associated tests in the `tests/` directory.
+
+## 🧑‍💻 Algorithms
+This repo also includes implementations of classic algorithms from scratch, focusing on understanding the underlying principles and how they work. By building these from scratch, you'll gain a deeper understanding of algorithmic thinking and complexity.
+
+Implemented so far: <br> <!--✅⬜-->
+⬜ Bubble Sort <br>
+⬜ Insertion Sort <br>
+⬜ Selection Sort <br>
+⬜ Merge Sort <br>
+⬜ Quick Sort <br>
+⬜ Heap Sort <br>
+⬜ Linear Search <br>
+⬜ Binary Search <br>
+⬜ Dynamic Programming (Fibonacci) <br>
+⬜ Depth-First Search <br>
+⬜ Breadth-First Search (BFS) <br>
+⬜ Dijkstra’s Shortest Path <br>
+⬜ Bellman-Ford Algorithm <br>
+⬜ Kruskal’s Algorithm <br>
+⬜ Floyd-Warshall Algorithm
+
+Each algorithm is implemented with examples and tested for correctness.
 
 ## 🚀 Getting Started
 To get up and running with the sandbox environment:
