@@ -73,11 +73,18 @@ class SingularlyLinkedList:
 
         :raises ValueError: If value is not in the array.
         """
+        if self.isEmpty():
+            raise IndexError("List is empty.")
         current = self.__head
-        while current.data != data:
-            current = current.next
-            if current is None:
-                raise ValueError("Value not found.")
+        if current.data == data:
+            self.__head = current.next
+        else:
+            while current.next.data != data:
+                current = current.next
+                if current.next is None:
+                    raise ValueError("Value not found.")
+            current.next = current.next.next
+
 
     def pop(self, index=-1):
         """

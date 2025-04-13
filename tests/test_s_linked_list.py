@@ -30,8 +30,25 @@ def test_get_empty():
         ll.get()
 
 def test_remove(sample_list):
+    # Remove middle element
     sample_list.remove(2)
     assert len(sample_list) == 2
+    assert str(sample_list) == "[1, 3]"
+
+    # Remove head
+    sample_list.remove(1)
+    assert str(sample_list) == "[3]"
+
+    # Remove last remaining item
+    sample_list.remove(3)
+    assert sample_list.isEmpty()
+
+    # Try to remove from empty list
+    with pytest.raises(IndexError):
+        sample_list.remove(99)
+
+    # Try to remove non-existent item
+    sample_list.append(10)
     with pytest.raises(ValueError):
         sample_list.remove(42)
 
