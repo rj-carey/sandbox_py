@@ -144,6 +144,7 @@ class SingularlyLinkedList:
         current = self.__head
         while counter < index:
             current = current.next
+            counter += 1
         current.data = data
 
     def isEmpty(self):
