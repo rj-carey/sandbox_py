@@ -98,7 +98,7 @@ class SingularlyLinkedList:
         :raises IndexError: If index is out of bounds.
         """
         if index == -1:
-            index = len(self.__head)-1
+            index = len(self)-1
         if index < 0 or index >= len(self):
             raise ValueError("Index out of bounds.")
         if index == 0:
