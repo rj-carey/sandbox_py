@@ -41,20 +41,19 @@ class SingularlyLinkedList(DataStore):
 
         :raises IndexError: If index is out of bounds.
         """
+        if index < 0:
+            index += len(self) + 1
         if index < 0 or index > len(self):
             raise IndexError("Index out of bounds.")
         if index == 0:
             self.add(data)
         else:
-            new_node = Node(data)
-            counter = 1
             current = self.__head
+            counter = 1
             while counter < index:
-                if current.next is None:
-                    current.next = new_node
-                    return
                 current = current.next
                 counter += 1
+            new_node = Node(data)
             new_node.next = current.next
             current.next = new_node
 

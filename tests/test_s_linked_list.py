@@ -28,6 +28,10 @@ def test_insert_end(linked_list):
     linked_list.insert(3, 100)
     assert str(linked_list) == "[1, 2, 3, 100]"
 
+def test_inset_negative_index(linked_list):
+    linked_list.insert(-2, 99)
+    assert str(linked_list) == "[1, 2, 99, 3]"
+
 def test_insert_invalid():
     ll = SingularlyLinkedList()
     with pytest.raises(IndexError):
