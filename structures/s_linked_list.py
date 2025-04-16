@@ -1,4 +1,4 @@
-from data_store import DataStore
+from structures.data_store import DataStore
 from typing import override
 
 class Node:
