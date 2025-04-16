@@ -1,3 +1,6 @@
+from data_store import DataStore
+from typing import override
+
 class Node:
     """
     A node in a singly linked list.
@@ -7,19 +10,20 @@ class Node:
         self.data = data # Stores the data at this node
         self.next = None # Stores the reference to the next element
 
-class SingularlyLinkedList:
+class SingularlyLinkedList(DataStore):
     """
     A singularly linked list implementation similar.
     Space complexity of O(n).
     """
-
     def __init__(self):
         """Initialize an empty singularly linked list."""
+        super().__init__()
         self.__head = None # Stores the reference to the first element in the list
 
+    @override
     def add(self, data):
         """
-        Pre-pend an element to the start of the array. O(1)
+        Pre-pend an element to the start of the list. O(1)
 
         :param data: The data to append.
         """
@@ -27,21 +31,7 @@ class SingularlyLinkedList:
         new_node.next = self.__head
         self.__head = new_node
 
-    def append(self, data):
-        """
-        Append an element to the end of the array. O(n)
-
-        :param data: The data to append.
-        """
-        if self.isEmpty():
-            self.add(data)
-        else:
-            new_node = Node(data)
-            current = self.__head
-            while current.next:
-                current = current.next
-            current.next = new_node
-
+    @override
     def insert(self, index, data):
         """
         Insert an element at the given index in the list. O(n)
@@ -65,40 +55,18 @@ class SingularlyLinkedList:
             new_node.next = current.next
             current.next = new_node
 
-    def remove(self, data):
+    @override
+    def get(self, index=0):
         """
-        Remove the first occurrence of a value. O(n)
+        Get and delete the element at a specific index. O(n)
 
-        :param data: The value to remove.
-
-        :raises ValueError: If value is not in the array.
-        """
-        if self.isEmpty():
-            raise IndexError("List is empty.")
-        current = self.__head
-        if current.data == data:
-            self.__head = current.next
-        elif current.next is None:
-            raise ValueError("Value not found.")
-        else:
-            while current.next.data != data:
-                current = current.next
-                if current.next is None:
-                    raise ValueError("Value not found.")
-            current.next = current.next.next
-
-
-    def pop(self, index=-1):
-        """
-        Remove and return element at index (default last). O(n)
-
-        :param index: Index of the element to pop.
-        :return: The removed element.
+        :param index: The index to retrieve.
+        :return: The data at the index.
 
         :raises IndexError: If index is out of bounds.
         """
-        if index == -1:
-            index = len(self)-1
+        if index < 0:
+            index += len(self)
         if index < 0 or index >= len(self):
             raise ValueError("Index out of bounds.")
         if index == 0:
@@ -115,29 +83,42 @@ class SingularlyLinkedList:
             current.next = target.next
             return target.data
 
-    def get(self):
+    @override
+    def remove(self, data):
         """
-        Retrieve the first element of the singularly linked list. O(1)
+        Remove the first occurrence of an element. O(n)
 
-        :return: The data of the first element.
+        :param data: The data to remove.
 
+        :raises ValueError: If value is not in the array.
         :raises IndexError: If list is empty.
         """
         if self.isEmpty():
-            raise IndexError("The linked list is empty.")
-        data = self.__head.data
-        self.__head = self.__head.next
-        return data
+            raise IndexError("List is empty.")
+        current = self.__head
+        if current.data == data:
+            self.__head = current.next
+        elif current.next is None:
+            raise ValueError("Value not found.")
+        else:
+            while current.next.data != data:
+                current = current.next
+                if current.next is None:
+                    raise ValueError("Value not found.")
+            current.next = current.next.next
 
+    @override
     def set(self, index, data):
         """
-        Set the data at a specific index. O(n)
+        Set an element at a specific index. O(n)
 
         :param index: The index to update.
         :param data: The new data.
 
         :raises IndexError: If index is out of bounds.
         """
+        if index < 0:
+            index += len(self)
         if index < 0 or index >= len(self):
             raise ValueError("Index out of bounds.")
         counter = 0
@@ -146,6 +127,30 @@ class SingularlyLinkedList:
             current = current.next
             counter += 1
         current.data = data
+
+    @override
+    def peek(self, index=0):
+        """
+        Return the element at a specific index.
+
+        :param index: The index to retrieve.
+        :return: The data at the index.
+
+        :raises IndexError: If index is out of bounds.
+        """
+        if index < 0:
+            index += len(self)
+        if index < 0 or index >= len(self):
+            raise ValueError("Index out of bounds.")
+        if index == 0:
+            return self.__head.data
+        else:
+            counter = 1
+            current = self.__head
+            while counter < index:
+                current = current.next
+                counter += 1
+            return current.next.data
 
     def isEmpty(self):
         """
@@ -177,3 +182,6 @@ class SingularlyLinkedList:
             out_str += str(current.data) + ", "
             current = current.next
         return out_str[:-2] + "]"
+
+    def __repr__(self):
+        return self.__str__()

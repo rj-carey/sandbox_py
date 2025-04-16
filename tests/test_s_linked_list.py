@@ -2,99 +2,124 @@ import pytest
 from structures.s_linked_list import SingularlyLinkedList
 
 @pytest.fixture
-def sample_list():
+def linked_list():
     ll = SingularlyLinkedList()
-    ll.append(1)
-    ll.append(2)
-    ll.append(3)
-    return ll
+    ll.add(3)
+    ll.add(2)
+    ll.add(1)
+    return ll  # List is now [1, 2, 3]
 
 def test_add():
     ll = SingularlyLinkedList()
     ll.add(10)
-    assert len(ll) == 1
-    assert ll.get() == 10
+    assert str(ll) == "[10]"
 
-def test_append(sample_list):
-    assert len(sample_list) == 3
-    sample_list.append(4)
-    assert len(sample_list) == 4
+def test_insert_start():
+    ll = SingularlyLinkedList()
+    ll.add(2)
+    ll.insert(0, 1)
+    assert str(ll) == "[1, 2]"
 
-def test_get(sample_list):
-    assert sample_list.get() == 1
-    assert len(sample_list) == 2
+def test_insert_middle(linked_list):
+    linked_list.insert(1, 99)
+    assert str(linked_list) == "[1, 99, 2, 3]"
 
-def test_get_empty():
+def test_insert_end(linked_list):
+    linked_list.insert(3, 100)
+    assert str(linked_list) == "[1, 2, 3, 100]"
+
+def test_insert_invalid():
     ll = SingularlyLinkedList()
     with pytest.raises(IndexError):
-        ll.get()
+        ll.insert(5, 10)
 
-def test_remove(sample_list):
-    # Remove middle element
-    sample_list.remove(2)
-    assert len(sample_list) == 2
-    assert str(sample_list) == "[1, 3]"
+def test_get_start(linked_list):
+    value = linked_list.get(0)
+    assert value == 1
+    assert str(linked_list) == "[2, 3]"
 
-    # Remove head
-    sample_list.remove(1)
-    assert str(sample_list) == "[3]"
+def test_get_end(linked_list):
+    value = linked_list.get(-1)
+    assert value == 3
+    assert str(linked_list) == "[1, 2]"
 
-    # Remove last remaining item
-    sample_list.remove(3)
-    assert sample_list.isEmpty()
-
-    # Try to remove from empty list
-    with pytest.raises(IndexError):
-        sample_list.remove(99)
-
-    # Try to remove non-existent item
-    sample_list.append(10)
+def test_get_invalid_index():
+    ll = SingularlyLinkedList()
     with pytest.raises(ValueError):
-        sample_list.remove(42)
+        ll.get(0)
+
+def test_remove_head():
+    ll = SingularlyLinkedList()
+    ll.add(1)
+    ll.add(2)
+    ll.remove(2)
+    assert str(ll) == "[1]"
+
+def test_remove_middle(linked_list):
+    linked_list.remove(2)
+    assert str(linked_list) == "[1, 3]"
+
+def test_remove_nonexistent():
+    ll = SingularlyLinkedList()
+    ll.add(1)
+    with pytest.raises(ValueError):
+        ll.remove(10)
+
+def test_remove_from_empty():
+    ll = SingularlyLinkedList()
+    with pytest.raises(IndexError):
+        ll.remove(1)
+
+def test_set_middle(linked_list):
+    linked_list.set(1, 42)
+    assert str(linked_list) == "[1, 42, 3]"
+
+def test_set_negative_index(linked_list):
+    linked_list.set(-1, 99)
+    assert str(linked_list) == "[1, 2, 99]"
+
+def test_set_invalid_index():
+    ll = SingularlyLinkedList()
+    with pytest.raises(ValueError):
+        ll.set(0, 1)
+
+def test_peek_start(linked_list):
+    assert linked_list.peek(0) == 1
+
+def test_peek_middle(linked_list):
+    assert linked_list.peek(1) == 2
+
+def test_peek_end(linked_list):
+    assert linked_list.peek(2) == 3
+
+def test_peek_negative_index(linked_list):
+    assert linked_list.peek(-1) == 3
+    assert linked_list.peek(-2) == 2
+
+def test_peek_invalid_index_positive(linked_list):
+    with pytest.raises(ValueError):
+        linked_list.peek(5)
+
+def test_peek_invalid_index_negative(linked_list):
+    with pytest.raises(ValueError):
+        linked_list.peek(-4)
+
+def test_peek_on_empty():
+    ll = SingularlyLinkedList()
+    with pytest.raises(ValueError):
+        ll.peek(0)
 
 def test_is_empty():
     ll = SingularlyLinkedList()
     assert ll.isEmpty()
-    ll.append(1)
+    ll.add(1)
     assert not ll.isEmpty()
 
-def test_pop_end(sample_list):
-    assert sample_list.pop() == 3
-    assert len(sample_list) == 2
+def test_len(linked_list):
+    assert len(linked_list) == 3
 
-def test_pop_index(sample_list):
-    assert sample_list.pop(1) == 2
-    assert len(sample_list) == 2
+def test_str(linked_list):
+    assert str(linked_list) == "[1, 2, 3]"
 
-def test_pop_index_out_of_bounds():
-    ll = SingularlyLinkedList()
-    ll.append(1)
-    with pytest.raises(ValueError):
-        ll.pop(2)
-
-def test_set(sample_list):
-    sample_list.set(1, 42)
-    assert sample_list.pop(1) == 42
-
-def test_set_index_out_of_bounds(sample_list):
-    with pytest.raises(ValueError):
-        sample_list.set(5, 100)
-
-def test_insert_at_head():
-    ll = SingularlyLinkedList()
-    ll.append(1)
-    ll.insert(0, 99)
-    assert ll.pop(0) == 99
-
-def test_insert_index_out_of_bounds():
-    ll = SingularlyLinkedList()
-    ll.append(1)
-    with pytest.raises(IndexError):
-        ll.insert(5, 10)
-
-def test_str(sample_list):
-    assert str(sample_list) == "[1, 2, 3]"
-
-def test_str_empty():
-    ll = SingularlyLinkedList()
-    assert str(ll) == "[]"
+def test_repr(linked_list):
+    assert repr(linked_list) == "[1, 2, 3]"
