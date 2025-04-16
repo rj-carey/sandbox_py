@@ -130,7 +130,8 @@ def test_str(linked_list):
     assert str(linked_list) == "[1, 2, 3]"
 
 def test_empty_str():
-    assert str() == "[]"
+    ll = SingularlyLinkedList()
+    assert str(ll) == "[]"
 
 def test_repr(linked_list):
     assert repr(linked_list) == "[1, 2, 3]"

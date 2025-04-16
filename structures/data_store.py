@@ -13,15 +13,6 @@ class DataStore:
         return "add() not implemented for this structure type."
 
     @staticmethod
-    def add(data):
-        """
-        Add an element to the structure, the position it is added to depends on the structure type.
-
-        :param data: The data to append.
-        """
-        return "add() not implemented for this structure type."
-
-    @staticmethod
     def insert(index, data):
         """
         Insert an element at a specified index.
