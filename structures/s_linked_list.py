@@ -50,6 +50,9 @@ class SingularlyLinkedList(DataStore):
             counter = 1
             current = self.__head
             while counter < index:
+                if current.next is None:
+                    current.next = new_node
+                    return
                 current = current.next
                 counter += 1
             new_node.next = current.next
