@@ -65,6 +65,14 @@ def test_remove_nonexistent():
     with pytest.raises(ValueError):
         ll.remove(10)
 
+def test_remove_nonexistent_long():
+    ll = SingularlyLinkedList()
+    ll.add(3)
+    ll.add(2)
+    ll.add(1)
+    with pytest.raises(ValueError):
+        ll.remove(10)
+
 def test_remove_from_empty():
     ll = SingularlyLinkedList()
     with pytest.raises(IndexError):
@@ -120,6 +128,9 @@ def test_len(linked_list):
 
 def test_str(linked_list):
     assert str(linked_list) == "[1, 2, 3]"
+
+def test_empty_str():
+    assert str() == "[]"
 
 def test_repr(linked_list):
     assert repr(linked_list) == "[1, 2, 3]"
