@@ -32,9 +32,12 @@ def test_insert_at_middle(populated_list):
     assert populated_list.peek(2) == 99
 
 def test_insert_at_tail(populated_list):
-    length = len(populated_list)
-    populated_list.insert(length - 1, 999)
-    assert populated_list.peek(length - 1) == 999
+    populated_list.insert(5, 999)
+    assert populated_list.peek(-1) == 999
+
+def test_inset_negative_index(populated_list):
+    populated_list.insert(-2, 99)
+    assert str(populated_list) == "[0, 1, 2, 3, 99, 4]"
 
 def test_insert_out_of_bounds(empty_list):
     with pytest.raises(IndexError):
@@ -58,6 +61,12 @@ def test_get_middle(populated_list):
     assert got == val
     assert len(populated_list) == 4
 
+def test_get_length_one(empty_list):
+    empty_list.add(1)
+    val = empty_list.get(0)
+    assert val == 1
+    assert len(empty_list) == 0
+
 def test_get_out_of_bounds(populated_list):
     with pytest.raises(IndexError):
         populated_list.get(10)
@@ -77,6 +86,16 @@ def test_remove_middle(populated_list):
     populated_list.remove(val)
     assert str(populated_list) == "[0, 1, 3, 4]"
 
+def test_remove_length_one(empty_list):
+    empty_list.add(1)
+    empty_list.remove(1)
+    assert len(empty_list) == 0
+
+def test_remove_not_found_short(empty_list):
+    empty_list.add(1)
+    with pytest.raises(ValueError):
+        empty_list.remove(2)
+
 def test_remove_not_found(populated_list):
     with pytest.raises(ValueError):
         populated_list.remove(999)
@@ -88,6 +107,10 @@ def test_remove_from_empty(empty_list):
 def test_set_value(populated_list):
     populated_list.set(2, 999)
     assert populated_list.peek(2) == 999
+
+def test_set_negative_index(populated_list):
+    populated_list.set(-1, 99)
+    assert str(populated_list) == "[0, 1, 2, 3, 99]"
 
 def test_set_invalid_index(populated_list):
     with pytest.raises(ValueError):
