@@ -82,7 +82,7 @@ class DoublyLinkedList(DataStore):
         :raises IndexError: If index is out of bounds.
         """
         if index < 0:
-            index += len(self) + 1
+            index += len(self)
         if index < 0 or index > len(self):
             raise IndexError("Index out of bounds.")
         if index == 0:

@@ -47,7 +47,7 @@ def test_get_head(populated_list):
     assert len(populated_list) == 4
 
 def test_get_tail(populated_list):
-    last = populated_list.peek(len(populated_list) - 1)
+    last = populated_list.peek(-1)
     got = populated_list.get(-1)
     assert got == last
     assert len(populated_list) == 4
@@ -68,7 +68,7 @@ def test_remove_head(populated_list):
     assert populated_list.peek(0) != val
 
 def test_remove_tail(populated_list):
-    val = populated_list.peek(len(populated_list) - 1)
+    val = populated_list.peek(-1)
     populated_list.remove(val)
     assert str(populated_list) == "[0, 1, 2, 3]"
 
