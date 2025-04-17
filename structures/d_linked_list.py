@@ -52,7 +52,7 @@ class DoublyLinkedList(DataStore):
             index += len(self) + 1
         if index < 0 or index > len(self):
             raise IndexError("Index out of bounds.")
-        if index == len(self)-1:
+        if index == len(self):
             self.add(data)
         elif index == 0:
             new_node = Node(data)

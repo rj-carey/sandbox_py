@@ -70,12 +70,12 @@ def test_remove_head(populated_list):
 def test_remove_tail(populated_list):
     val = populated_list.peek(len(populated_list) - 1)
     populated_list.remove(val)
-    assert val not in str(populated_list)
+    assert str(populated_list) == "[0, 1, 2, 3]"
 
 def test_remove_middle(populated_list):
     val = populated_list.peek(2)
     populated_list.remove(val)
-    assert val not in str(populated_list)
+    assert str(populated_list) == "[0, 1, 3, 4]"
 
 def test_remove_not_found(populated_list):
     with pytest.raises(ValueError):
