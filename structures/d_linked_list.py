@@ -9,32 +9,39 @@ class Node:
         """Initialize an empty node."""
         self.data = data # Stores the data at this node
         self.next = None # Stores the reference to the next element
+        self.prev = None # Stores the reference to the previous element
 
-class SingularlyLinkedList(DataStore):
+class DoublyLinkedList(DataStore):
     """
-    A singularly linked list implementation similar.
+    A doubly linked list implementation.
     Space complexity of O(n).
     """
     def __init__(self):
-        """Initialize an empty singularly linked list."""
+        """Initialize an empty doubly linked list."""
         super().__init__()
         self.__head = None # Stores the reference to the first element in the list
+        self.__tail = None # Stores the reference to the last element in the list
 
     @override
     def add(self, data):
         """
-        Pre-pend an element to the start of the list. O(1)
+        Append an element to the doubly linked list. O(1)
 
         :param data: The data to append.
         """
         new_node = Node(data)
-        new_node.next = self.__head
-        self.__head = new_node
+        if self.__head is None:
+            self.__head = new_node
+            self.__tail = new_node
+        else:
+            self.__tail.next = new_node
+            new_node.prev = self.__tail
+            self.__tail = new_node
 
     @override
     def insert(self, index, data):
         """
-        Insert an element at the given index in the list. O(n)
+        Insert an element at a specified index. O(n)
 
         :param index: Index at which to insert.
         :param data: The data to insert.
@@ -45,20 +52,27 @@ class SingularlyLinkedList(DataStore):
             index += len(self) + 1
         if index < 0 or index > len(self):
             raise IndexError("Index out of bounds.")
-        if index == 0:
+        if index == len(self)-1:
             self.add(data)
+        elif index == 0:
+            new_node = Node(data)
+            new_node.next = self.__head
+            self.__head.prev = new_node
+            self.__head = new_node
         else:
-            current = self.__head
+            new_node = Node(data)
             counter = 1
+            current = self.__head.next
             while counter < index:
                 current = current.next
                 counter += 1
-            new_node = Node(data)
-            new_node.next = current.next
-            current.next = new_node
+            new_node.prev = current.prev
+            new_node.next = current
+            current.prev.next = new_node
+            current.prev = new_node
 
     @override
-    def get(self, index=0):
+    def get(self, index=-1):
         """
         Get and delete the element at a specific index. O(n)
 
@@ -68,22 +82,31 @@ class SingularlyLinkedList(DataStore):
         :raises IndexError: If index is out of bounds.
         """
         if index < 0:
-            index += len(self)
-        if index < 0 or index >= len(self):
-            raise ValueError("Index out of bounds.")
+            index += len(self) + 1
+        if index < 0 or index > len(self):
+            raise IndexError("Index out of bounds.")
         if index == 0:
-            current = self.__head
-            self.__head = current.next
-            return current.data
+            target = self.__head
+            self.__head = target.next
+            if self.__head is None:
+                self.__tail = None
+            else:
+                self.__head.prev = None
+            return target.data
+        elif index == len(self)-1:
+            target = self.__tail
+            self.__tail = target.prev
+            self.__tail.next = None
+            return target.data
         else:
             counter = 1
-            current = self.__head
+            current = self.__head.next
             while counter < index:
                 current = current.next
                 counter += 1
-            target = current.next
-            current.next = target.next
-            return target.data
+            current.prev.next = current.next
+            current.next.prev = current.prev
+            return current.data
 
     @override
     def remove(self, data):
@@ -97,17 +120,25 @@ class SingularlyLinkedList(DataStore):
         """
         if self.isEmpty():
             raise IndexError("List is empty.")
-        current = self.__head
-        if current.data == data:
-            self.__head = current.next
-        elif current.next is None:
-            raise ValueError("Value not found.")
+        if self.__head.data == data:
+            self.__head = self.__head.next
+            if self.__head is None:
+                self.__tail = None
+            else:
+                self.__head.prev = None
+        elif self.__tail.data == data:
+            self.__tail = self.__tail.prev
+            self.__tail.next = None
         else:
-            while current.next.data != data:
+            current = self.__head.next
+            if current is None:
+                raise ValueError("Value not found.")
+            while current.data != data:
                 current = current.next
-                if current.next is None:
+                if current is None:
                     raise ValueError("Value not found.")
-            current.next = current.next.next
+            current.prev.next = current.next
+            current.next.prev = current.prev
 
     @override
     def set(self, index, data):
@@ -131,9 +162,9 @@ class SingularlyLinkedList(DataStore):
         current.data = data
 
     @override
-    def peek(self, index=0):
+    def peek(self, index):
         """
-        Return the element at a specific index.
+        Return the element at a specific index. O(n)
 
         :param index: The index to retrieve.
         :return: The data at the index.
@@ -149,7 +180,7 @@ class SingularlyLinkedList(DataStore):
         while counter < index:
             current = current.next
             counter += 1
-        return current.next.data
+        return current.data
 
     def isEmpty(self):
         """
