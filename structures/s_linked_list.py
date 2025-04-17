@@ -4,6 +4,7 @@ from typing import override
 class Node:
     """
     A node in a singly linked list.
+
     """
     def __init__(self, data):
         """Initialize an empty node."""

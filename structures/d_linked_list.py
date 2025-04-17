@@ -13,6 +13,7 @@ class Node:
 
 class DoublyLinkedList(DataStore):
     """
+
     A doubly linked list implementation.
     Space complexity of O(n).
     """

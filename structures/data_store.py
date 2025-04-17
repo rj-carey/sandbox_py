@@ -1,6 +1,7 @@
 class DataStore:
     """
     A base class for data structures.
+
     """
 
     @staticmethod
