@@ -144,12 +144,15 @@ class SingularlyLinkedList(DataStore):
             index += len(self)
         if index < 0 or index >= len(self):
             raise ValueError("Index out of bounds.")
-        counter = 0
-        current = self.__head
-        while counter < index:
-            current = current.next
-            counter += 1
-        return current.next.data
+        if index == 0:
+            return self.__head.data
+        else:
+            counter = 1
+            current = self.__head
+            while counter < index:
+                current = current.next
+                counter += 1
+            return current.next.data
 
     def isEmpty(self):
         """

@@ -27,7 +27,7 @@ This repo includes Python implementations of classic data structures from scratc
 
 Implemented so far: <br> <!--✅⬜-->
 ✅ Singularly Linked List <br>
-✅ Doubly Linked List <br>
+⬜ Doubly Linked List <br>
 ⬜ Circular Linked List <br>
 ⬜ Stack <br>
 ⬜ Queue (Regular/Circular/Priority) <br>
