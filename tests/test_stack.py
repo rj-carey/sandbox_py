@@ -37,6 +37,6 @@ def test_str_and_repr():
     s.add(1)
     s.add(2)
     s.add(3)
-    expected = ["..."] + [3, 2, 1]
+    expected = "[..., 3, 2, 1]"
     assert s.__str__() == expected
     assert repr(s) == expected

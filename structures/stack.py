@@ -54,7 +54,7 @@ class Stack(DataStore):
         return self.__store == []
 
     def __str__(self):
-        return ["..."] + self.__store
+        return f"[..., {str(self.__store)[1:]}"
 
     def __repr__(self):
         return self.__str__()
