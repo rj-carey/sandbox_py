@@ -12,7 +12,7 @@ class Node:
 
 class SingularlyLinkedList(DataStore):
     """
-    A singularly linked list implementation similar.
+    A singularly linked list implementation.
     Space complexity of O(n).
     """
     def __init__(self):
@@ -25,7 +25,7 @@ class SingularlyLinkedList(DataStore):
         """
         Pre-pend an element to the start of the list. O(1)
 
-        :param data: The data to append.
+        :param data: The data to pre-pend.
         """
         new_node = Node(data)
         new_node.next = self.__head

@@ -8,7 +8,7 @@ class DataStore:
         """
         Add an element to the structure, the position it is added to depends on the structure type.
 
-        :param data: The data to append.
+        :param data: The data to add.
         """
         return "add() not implemented for this structure type."
 
