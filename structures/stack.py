@@ -28,7 +28,7 @@ class Stack(DataStore):
 
         :raises IndexError: If stack is empty.
         """
-        if self.isEmpty:
+        if self.isEmpty():
             raise IndexError("Stack is empty.")
         return self.__store.pop(0)
 
@@ -41,7 +41,7 @@ class Stack(DataStore):
 
         :raises IndexError: If stack is empty.
         """
-        if self.isEmpty:
+        if self.isEmpty():
             raise IndexError("Stack is empty.")
         return self.__store[0]
 
