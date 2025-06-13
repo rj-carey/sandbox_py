@@ -1,19 +1,19 @@
 from structures.data_store import DataStore
 from typing import override
 
-class Stack(DataStore):
+class Queue(DataStore):
     """
-    A stack implementation.
+    A queue implementation.
     Space complexity of O(n).
     """
     def __init__(self):
-        """Initialize an empty stack."""
+        """Initialize an empty queue."""
         self.__store = []
 
     @override
     def add(self, data):
         """
-        Add an element to the top of the stack. O(1)
+        Add an element to the back of the queue. O(1)
 
         :param data: The data to add.
         """
@@ -22,28 +22,28 @@ class Stack(DataStore):
     @override
     def get(self):
         """
-        Get and delete the element on the top of the stack. O(1)
+        Get and delete the element at the front of the queue. O(n)
 
         :return: The data at the index.
 
-        :raises IndexError: If stack is empty.
+        :raises IndexError: If queue is empty.
         """
         if self.isEmpty():
-            raise IndexError("Stack is empty.")
-        return self.__store.pop(-1)
+            raise IndexError("Queue is empty.")
+        return self.__store.pop(0)
 
     @override
     def peek(self):
         """
-        Return the element on the top of the stack. O(1).
+        Return the element at the front of the queue. O(1).
 
         :return: The data at the index.
 
-        :raises IndexError: If stack is empty.
+        :raises IndexError: If queue is empty.
         """
         if self.isEmpty():
-            raise IndexError("Stack is empty.")
-        return self.__store[-1]
+            raise IndexError("Queue is empty.")
+        return self.__store[0]
 
     def isEmpty(self):
         """
