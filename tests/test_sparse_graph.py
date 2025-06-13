@@ -31,8 +31,10 @@ def test_add_edge(populated_graph):
         populated_graph.add_edge(2, 1)
 
 def test_remove_node(populated_graph):
+    assert populated_graph.get_connected_nodes(1) == [2, 3]
     populated_graph.remove_node(1)
     assert populated_graph.get_nodes() == [2, 3, 4]
+    assert populated_graph.get_connected_nodes(2) == []
     assert populated_graph.get_connected_nodes(3) == [4]
     with pytest.raises(KeyError, match="Node not found."):
         populated_graph.remove_node(1)
