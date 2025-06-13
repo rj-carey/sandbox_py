@@ -1,15 +1,15 @@
 import pytest
-from structures.queue import Queue
+from structures.priority_queue import PriorityQueue
 
 def test_add_and_peek():
-    s = Queue()
+    s = PriorityQueue()
     s.add(1)
     s.add(2)
     assert s.peek() == 1  # First added is on top
     assert not s.isEmpty()
 
 def test_get():
-    s = Queue()
+    s = PriorityQueue()
     s.add(1)
     s.add(2)
     assert s.get() == 1
@@ -17,23 +17,23 @@ def test_get():
     assert s.isEmpty()
 
 def test_get_empty_raises():
-    s = Queue()
+    s = PriorityQueue()
     with pytest.raises(IndexError, match="Queue is empty."):
         s.get()
 
 def test_peek_empty_raises():
-    s = Queue()
+    s = PriorityQueue()
     with pytest.raises(IndexError, match="Queue is empty."):
         s.peek()
 
 def test_is_empty_true_and_false():
-    s = Queue()
+    s = PriorityQueue()
     assert s.isEmpty()
     s.add(10)
     assert not s.isEmpty()
 
 def test_str_and_repr():
-    s = Queue()
+    s = PriorityQueue()
     s.add(1)
     s.add(2)
     s.add(3)
@@ -42,7 +42,7 @@ def test_str_and_repr():
     assert repr(s) == expected
 
 def test_priority():
-    s = Queue()
+    s = PriorityQueue()
     s.add(3)
     s.add(4)
     s.add(0)

@@ -1,7 +1,7 @@
 from structures.data_store import DataStore
 from typing import override
 
-class Queue(DataStore):
+class PriorityQueue(DataStore):
     """
     A queue implementation.
     Space complexity of O(n).
