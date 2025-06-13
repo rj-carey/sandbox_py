@@ -30,7 +30,7 @@ Implemented so far: <br> <!--✅⬜-->
 ✅ Doubly Linked List <br>
 ✅ Stack <br>
 ✅ Queue <br>
-⬜ Queue (Circular/Priority) <br>
+✅ Priority Queue <br>
 ⬜ Graph (List/Matrix) <br>
 ⬜ Binary Tree <br>
 ⬜ AVL Tree <br>
