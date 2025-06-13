@@ -43,7 +43,7 @@ class SparseGraph:
         :raises KeyError: Raised if the node is not in the graph.
         """
         if value in self.__nodes.keys():
-            while self.__nodes[value] is not []:
+            while self.__nodes[value]:
                 self.remove_edge(value, self.__nodes[value][0])
             self.__nodes.pop(value)
         else:
