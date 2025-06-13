@@ -29,7 +29,8 @@ Implemented so far: <br> <!--✅⬜-->
 ✅ Singularly Linked List <br>
 ✅ Doubly Linked List <br>
 ✅ Stack <br>
-⬜ Queue (Regular/Circular/Priority) <br>
+✅ Queue <br>
+⬜ Queue (Circular/Priority) <br>
 ⬜ Graph (List/Matrix) <br>
 ⬜ Binary Tree <br>
 ⬜ AVL Tree <br>
