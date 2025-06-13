@@ -84,11 +84,11 @@ class SparseGraph:
 
     def get_nodes(self):
         """
-        Return list of nodes. O(1)
+        Return list of nodes. O(n)
 
         :return: List of nodes present.
         """
-        return self.__nodes.keys()
+        return list(self.__nodes.keys())
 
     def isAdjacent(self, source, destination):
         """
