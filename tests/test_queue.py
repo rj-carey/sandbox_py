@@ -1,39 +1,39 @@
 import pytest
-from structures.stack import Stack
+from structures.queue import Queue
 
 def test_add_and_peek():
-    s = Stack()
+    s = Queue()
     s.add(1)
     s.add(2)
-    assert s.peek() == 2  # Last added is on top
+    assert s.peek() == 1  # First added is on top
     assert not s.isEmpty()
 
 def test_get():
-    s = Stack()
+    s = Queue()
     s.add('x')
     s.add('y')
-    assert s.get() == 'y'
     assert s.get() == 'x'
+    assert s.get() == 'y'
     assert s.isEmpty()
 
 def test_get_empty_raises():
-    s = Stack()
-    with pytest.raises(IndexError, match="Stack is empty."):
+    s = Queue()
+    with pytest.raises(IndexError, match="Queue is empty."):
         s.get()
 
 def test_peek_empty_raises():
-    s = Stack()
-    with pytest.raises(IndexError, match="Stack is empty."):
+    s = Queue()
+    with pytest.raises(IndexError, match="Queue is empty."):
         s.peek()
 
 def test_is_empty_true_and_false():
-    s = Stack()
+    s = Queue()
     assert s.isEmpty()
     s.add(10)
     assert not s.isEmpty()
 
 def test_str_and_repr():
-    s = Stack()
+    s = Queue()
     s.add(1)
     s.add(2)
     s.add(3)
