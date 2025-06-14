@@ -28,7 +28,13 @@ class SparseGraph:
         :param destination: Second node of edge.
 
         :raises KeyError: If the edge is already present.
+        :raises KeyError: If the node is not found.
+        :raises ValueError: If the same node is input twice.
         """
+        if source == destination:
+            raise ValueError("Cannot add edge between same node.")
+        if source not in self.__nodes.keys() or destination not in self.__nodes.keys():
+            raise KeyError("Node not found.")
         if self.isAdjacent(source, destination):
             raise KeyError("Edge already present.")
         self.__nodes[source].append(destination)
