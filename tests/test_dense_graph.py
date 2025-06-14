@@ -15,9 +15,9 @@ def populated_graph():
 
 def test_add_node():
     graph = DenseGraph(3)
+    graph.add_node(0)
     graph.add_node(1)
     graph.add_node(2)
-    graph.add_node(3)
     assert graph.get_nodes() == [1, 2, 3]
     with pytest.raises(KeyError, match="Node already present."):
         graph.add_node(1)
