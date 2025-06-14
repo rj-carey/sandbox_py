@@ -32,7 +32,7 @@ Implemented so far: <br> <!--✅⬜-->
 ✅ Queue <br>
 ✅ Priority Queue <br>
 ✅ Sparse Graph (Adjacency List) <br>
-⬜ Dense Graph (Adjacency Matrix) <br>
+✅ Dense Graph (Adjacency Matrix) <br>
 ⬜ Binary Tree <br>
 ⬜ AVL Tree <br>
 ⬜ Heap (Min/Max) <br>
