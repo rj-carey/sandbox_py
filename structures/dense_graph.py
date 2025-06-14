@@ -85,7 +85,8 @@ class DenseGraph:
             raise ValueError("Node value out of range.")
         if self.__nodes[min_node][min_node] == 0 or self.__nodes[max_node][max_node] == 0:
             raise KeyError("Node not found.")
-        self.__nodes[max_node][min_node] = 0
+        if source != destination:
+            self.__nodes[max_node][min_node] = 0
 
     def get_connected_nodes(self, value):
         """
