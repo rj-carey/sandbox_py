@@ -54,9 +54,9 @@ def test_remove_node(populated_graph):
     with pytest.raises(KeyError, match="Node not found."):
         populated_graph.remove_node(1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_node(4, -1)
+        populated_graph.remove_node(-1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_node(6, 1)
+        populated_graph.remove_node(6)
 
 def test_remove_edge(populated_graph):
     populated_graph.remove_edge(1, 2)
