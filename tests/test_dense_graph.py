@@ -3,7 +3,7 @@ from structures.dense_graph import DenseGraph
 
 @pytest.fixture
 def populated_graph():
-    graph = DenseGraph(5)
+    graph = DenseGraph(6)
     graph.add_node(1)
     graph.add_node(2)
     graph.add_node(3)
@@ -18,7 +18,7 @@ def test_add_node():
     graph.add_node(0)
     graph.add_node(1)
     graph.add_node(2)
-    assert graph.get_nodes() == [1, 2, 3]
+    assert graph.get_nodes() == [0, 1, 2]
     with pytest.raises(KeyError, match="Node already present."):
         graph.add_node(1)
     with pytest.raises(ValueError, match="Node value out of range."):
