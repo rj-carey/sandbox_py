@@ -54,9 +54,9 @@ def test_remove_node(populated_graph):
     with pytest.raises(KeyError, match="Node not found."):
         populated_graph.remove_node(1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.add_edge(4, -1)
+        populated_graph.remove_node(4, -1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.add_edge(6, 1)
+        populated_graph.remove_node(6, 1)
 
 def test_remove_edge(populated_graph):
     populated_graph.remove_edge(1, 2)
@@ -79,9 +79,9 @@ def test_get_connected_nodes(populated_graph):
     with pytest.raises(KeyError, match="Node not found."):
         populated_graph.get_connected_nodes(5)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_edge(4, -1)
+        populated_graph.get_connected_nodes(-1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_edge(4, 7)
+        populated_graph.get_connected_nodes(7)
 
 def test_get_nodes(populated_graph):
     assert populated_graph.get_nodes() == [1, 2, 3, 4]
@@ -91,14 +91,14 @@ def test_is_adjacent(populated_graph):
     assert populated_graph.isAdjacent(1, 4) == False
     assert populated_graph.isAdjacent(1, 1) == False
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_edge(4, -1)
+        populated_graph.isAdjacent(4, -1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_edge(4, 7)
+        populated_graph.isAdjacent(4, 7)
 
 def test_is_present(populated_graph):
     assert populated_graph.isPresent(1) == True
     assert populated_graph.isPresent(5) == False
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_edge(4, -1)
+        populated_graph.isPresent(-1)
     with pytest.raises(ValueError, match="Node value out of range."):
-        populated_graph.remove_edge(4, 7)
+        populated_graph.isPresent(7)
