@@ -110,6 +110,7 @@ class BinaryTree:
                                 replacement.left = current_node.left.left
                                 replacement.right = current_node.left.right
                             current_node.left = replacement
+                            return
                         else:
                             current_node = current_node.left
                     else:
@@ -123,6 +124,7 @@ class BinaryTree:
                                 replacement.left = current_node.right.left
                                 replacement.right = current_node.right.right
                             current_node.right = replacement
+                            return
                         else:
                             current_node = current_node.right
                     else:
