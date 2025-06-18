@@ -62,12 +62,14 @@ def test_remove_node_one_subtree():
 
 def test_remove_node_deep_replacement():
     tree = BinaryTree()
-    for v in [5,1,2]:
+    for v in [5,3,1,2, 4]:
         tree.add_node(v)
-    tree.remove_node(1)
-    assert tree.find_node(1) is None
+    tree.remove_node(3)
+    assert tree.find_node(3) is None
     assert tree.find_node(5) is not None
     assert tree.find_node(2) is not None
+    assert tree.find_node(1) is not None
+    assert tree.find_node(4) is not None
 
 def test_remove_node_deep_position_left():
     tree = BinaryTree()
@@ -105,6 +107,8 @@ def test_remove_nonexistent_node_raises():
     tree.add_node(10)
     with pytest.raises(ValueError, match="Node does not exist."):
         tree.remove_node(5)
+    with pytest.raises(ValueError, match="Node does not exist."):
+        tree.remove_node(20)
 
 def test_remove_from_empty_raises():
     tree = BinaryTree()
