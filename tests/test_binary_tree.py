@@ -93,6 +93,16 @@ def test_remove_node_deep_position_right():
     assert tree.find_node(2) is not None
     assert tree.find_node(4) is not None
 
+def test_remove_right_replacement():
+    tree = BinaryTree()
+    for v in [1,3,4,2]:
+        tree.add_node(v)
+    tree.remove_node(3)
+    assert tree.find_node(3) is None
+    assert tree.find_node(1) is not None
+    assert tree.find_node(2) is not None
+    assert tree.find_node(4) is not None
+
 def test_remove_root_node():
     tree = BinaryTree()
     for v in [10, 5, 15]:
