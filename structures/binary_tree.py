@@ -219,3 +219,4 @@ class BinaryTree:
             if node:
                 count += 1
                 nodes += [node.left, node.right]
+        return count
