@@ -94,9 +94,9 @@ class BinaryTree:
         if self.__root.value == value:
             replacement = self.__find_replacement(self.__root)
             if replacement:
+                replacement.right = self.__root.right
                 replacement.parent.right = replacement.left
                 replacement.left = self.__root.left
-                replacement.right = self.__root.right
             self.__root = replacement
         else:
             current_node = self.__root
@@ -106,9 +106,9 @@ class BinaryTree:
                         if current_node.left.value == value:
                             replacement = self.__find_replacement(current_node.left)
                             if replacement:
+                                replacement.right = current_node.left.right
                                 replacement.parent.right = replacement.left
                                 replacement.left = current_node.left.left
-                                replacement.right = current_node.left.right
                             current_node.left = replacement
                             return
                         else:
@@ -120,9 +120,9 @@ class BinaryTree:
                         if current_node.right.value == value:
                             replacement = self.__find_replacement(current_node.right)
                             if replacement:
+                                replacement.right = current_node.right.right
                                 replacement.parent.right = replacement.left
                                 replacement.left = current_node.right.left
-                                replacement.right = current_node.right.right
                             current_node.right = replacement
                             return
                         else:
