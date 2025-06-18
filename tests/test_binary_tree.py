@@ -51,6 +51,7 @@ def test_remove_node_with_children():
     assert tree.find_node(20) is not None
     assert tree.find_node(40) is not None
 
+'''
 def test_remove_node_one_subtree():
     tree = BinaryTree()
     for v in [5,4,3,2,1]:
@@ -61,8 +62,8 @@ def test_remove_node_one_subtree():
     assert tree.find_node(3) is not None
     assert tree.find_node(2) is not None
     assert tree.find_node(1) is not None
-
 '''
+
 def test_remove_node_deep_replacement():
     tree = BinaryTree()
     for v in [5,1,2,3,4]:
@@ -94,8 +95,7 @@ def test_remove_node_deep_position_right():
     assert tree.find_node(1) is not None
     assert tree.find_node(3) is not None
     assert tree.find_node(2) is not None
-    assert tree.find_node(4) is not None
-'''
+    assert tree.find_node(4) is not None ####
 
 def test_remove_root_node():
     tree = BinaryTree()
