@@ -53,12 +53,14 @@ class BinaryTree:
                     else:
                         current_node.left = new_node
                         new_node.parent = current_node
+                        return
                 elif new_node > current_node:
                     if current_node.right:
                         current_node = current_node.right
                     else:
                         current_node.right = new_node
                         new_node.parent = current_node
+                        return
 
     @staticmethod
     def __find_replacement(node):
