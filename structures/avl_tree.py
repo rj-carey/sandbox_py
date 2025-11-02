@@ -10,19 +10,19 @@ class AVLNode:
         self.right = None
         self.balance_factor = 0
 
-    def __get_height(self):
+    def get_height(self):
         if self.left is None and self.right is None:
             return 1
         elif self.left is None:
-            return self.right.__get_height() + 1
+            return self.right.get_height() + 1
         elif self.right is None:
-            return self.left.__get_height() + 1
+            return self.left.get_height() + 1
         else:
-            return max(self.left.__get_height(), self.right.__get_height()) + 1
+            return max(self.left.get_height(), self.right.get_height()) + 1
 
     def update_bf(self):
-        hr = 0 if self.right is None else self.right.__get_height()
-        hl = 0 if self.left is None else self.left.__get_height()
+        hr = 0 if self.right is None else self.right.get_height()
+        hl = 0 if self.left is None else self.left.get_height()
         self.balance_factor = hr-hl
 
 class AVLTree:
