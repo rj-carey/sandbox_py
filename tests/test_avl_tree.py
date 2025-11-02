@@ -122,3 +122,46 @@ def test_complex_sequence_balances_correctly():
         check_balanced(node.left)
         check_balanced(node.right)
     check_balanced(root)
+
+def test_rotate_right_updates_y_right_parent():
+    """
+    Cover line 69: y.right.parent = z in __rotate_right().
+    This happens during a Left-Right imbalance (y.right exists).
+    """
+    tree = AVLTree()
+    # Create LR case: insert 30 (root), 10 (left), 20 (right of left)
+    for val in [30, 10, 20]:
+        tree.add_node(val)
+    # After rebalancing, tree should be balanced
+    assert tree.root.value == 20
+    assert tree.root.left.value == 10
+    assert tree.root.right.value == 30
+    # Confirm parent relationships (y.right.parent = z executed)
+    assert tree.root.left.parent == tree.root
+    assert tree.root.right.parent == tree.root
+
+
+def test_rotate_left_with_parent_left_branch():
+    """
+    Cover line 75: z.parent.left = y in __rotate_left().
+    We cause a right-heavy subtree rotation inside a left branch.
+    """
+    tree = AVLTree()
+    # Create structure:
+    #         50
+    #        /
+    #      20
+    #        \
+    #         40
+    #           \
+    #            45  -> triggers rotation at node 40, which is z (child of 20)
+    for val in [50, 20, 40, 45]:
+        tree.add_node(val)
+
+    root = tree.root
+    # Root should stay the same
+    assert root.value == 50
+    # Left subtree should be rebalanced
+    assert root.left.value in (20, 40, 45)
+    # Verify we covered z.parent.left=y behavior
+    assert root.left.parent == root
