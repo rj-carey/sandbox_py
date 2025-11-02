@@ -46,7 +46,7 @@ class AVLTree:
 
         y.parent = z.parent
         if z.parent is None:
-            self.__root = y
+            self.root = y
         elif z == z.parent.left:
             z.parent.left = y
         else:
@@ -70,7 +70,7 @@ class AVLTree:
 
         y.parent = z.parent
         if z.parent is None:
-            self.__root = y
+            self.root = y
         elif z == z.parent.left:
             z.parent.left = y
         else:
@@ -100,12 +100,6 @@ class AVLTree:
                 self.__rotate_right(node.right)
             self.__rotate_left(node)
 
-        # Check and update rotated root
-        parent = self.root.parent
-        while parent is not None:
-            self.root = parent
-            parent = self.root.parent
-
     def add_node(self, value):
         """
         Add a node to the tree, ensuring AVL condition is retained. O(log n)
@@ -114,10 +108,10 @@ class AVLTree:
 
         :raises ValueError: If the node is already present.
         """
-        if not self.__root:
+        if not self.root:
             self.root = AVLNode(value)
             return
-        current = self.__root
+        current = self.root
         while True:
             if value < current.value:
                 if current.left:
@@ -148,10 +142,10 @@ class AVLTree:
 
         :raises ValueError: If the node is not present.
         """
-        if self.__root is None:
+        if self.root is None:
             raise ValueError("Node does not exist.")
         else:
-            current_node = self.__root
+            current_node = self.root
             path = []
             while current_node is not None:
                 path.append(current_node)
