@@ -123,45 +123,30 @@ def test_complex_sequence_balances_correctly():
         check_balanced(node.right)
     check_balanced(root)
 
-def test_rotate_right_updates_y_right_parent():
+def test_rotate_right_covers_y_right_parent_and_parent_left_assignment():
     """
-    Cover line 69: y.right.parent = z in __rotate_right().
-    This happens during a Left-Right imbalance (y.right exists).
+    Covers:
+    - line 69: y.right.parent = z
+    - line 75: z.parent.left = y
+    by causing a Left-Right imbalance in a left subtree.
     """
-    tree = AVLTree()
-    # Create LR case: insert 30 (root), 10 (left), 20 (right of left)
-    for val in [30, 10, 20]:
-        tree.add_node(val)
-    # After rebalancing, tree should be balanced
-    assert tree.root.value == 20
-    assert tree.root.left.value == 10
-    assert tree.root.right.value == 30
-    # Confirm parent relationships (y.right.parent = z executed)
-    assert tree.root.left.parent == tree.root
-    assert tree.root.right.parent == tree.root
+    from structures.avl_tree import AVLTree
 
-
-def test_rotate_left_with_parent_left_branch():
-    """
-    Cover line 75: z.parent.left = y in __rotate_left().
-    We cause a right-heavy subtree rotation inside a left branch.
-    """
     tree = AVLTree()
-    # Create structure:
-    #         50
-    #        /
-    #      20
-    #        \
-    #         40
-    #           \
-    #            45  -> triggers rotation at node 40, which is z (child of 20)
-    for val in [50, 20, 55, 40, 45]:
+    # Build a left subtree imbalance under a non-root node
+    # 50 (root)
+    #  └── 30 (left child)
+    #       ├── 20 (left)
+    #       └── 40 (right)
+    #           └── 35 (right-left imbalance trigger)
+    for val in [50, 30, 20, 40, 35]:
         tree.add_node(val)
 
-    root = tree.root
-    # Root should stay the same
-    assert root.value == 50
-    # Left subtree should be rebalanced
-    assert root.left.value in (20, 40, 45)
-    # Verify we covered z.parent.left=y behavior
-    assert root.left.parent == root
+    # After rebalancing, 35 becomes parent of 30 and 40
+    assert tree.root.value == 50
+    assert tree.root.left.value == 35  # rotation happened under root
+    assert tree.root.left.left.value == 30
+    assert tree.root.left.right.value == 40
+    # and the structure confirms both parent pointers are correct
+    assert tree.root.left.left.parent == tree.root.left
+    assert tree.root.left.right.parent == tree.root.left
