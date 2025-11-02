@@ -155,7 +155,7 @@ def test_rotate_left_with_parent_left_branch():
     #         40
     #           \
     #            45  -> triggers rotation at node 40, which is z (child of 20)
-    for val in [50, 20, 40, 45]:
+    for val in [50, 20, 55, 40, 45]:
         tree.add_node(val)
 
     root = tree.root
