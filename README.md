@@ -34,7 +34,7 @@ Implemented so far: <br> <!--✅⬜-->
 ✅ Sparse Graph (Adjacency List) <br>
 ✅ Dense Graph (Adjacency Matrix) <br>
 ✅ Binary Tree <br>
-⬜ AVL Tree <br>
+✅ AVL Tree <br>
 ⬜ Heap (Min/Max) <br>
 ⬜ Hash Table
 
