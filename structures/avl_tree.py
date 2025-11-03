@@ -193,3 +193,21 @@ class AVLTree:
             if abs(parent.balance_factor) > 1:
                 self.__rebalance(parent)
             parent = parent.parent
+
+    def find_node(self, value):
+        """
+        Find a node in the tree. O(log n)
+
+        :param value: The data to find.
+
+        :return: True if node is present, False otherwise.
+        """
+        node = self.root
+        while node:
+            if value < node.value:
+                node = node.left
+            elif value > node.value:
+                node = node.right
+            else:
+                return True
+        return False

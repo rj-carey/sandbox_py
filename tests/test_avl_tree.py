@@ -259,7 +259,7 @@ def test_remove_node_with_two_children():
     # check replacement occurred correctly
     found = tree.root.left
     assert found.value in [10, 25]
-    assert tree.find_node(20) is None
+    assert not tree.find_node(20)
 
 def test_remove_root_with_two_children():
     tree = build_balanced_tree()
@@ -267,7 +267,7 @@ def test_remove_root_with_two_children():
     # Root should update (successor 35 or 40 typically)
     assert tree.root.value in [35, 40, 25]
     # Old root gone
-    assert tree.find_node(30) is None
+    assert not tree.find_node(30)
 
 def test_remove_until_empty():
     tree = AVLTree()
@@ -299,3 +299,29 @@ def test_remove_nonexistent_node():
     tree = build_balanced_tree()
     with pytest.raises(ValueError, match="Node does not exist"):
         tree.remove_node(999)
+
+def test_171_172_right_child_only():
+    tree = AVLTree()
+    for v in [50, 20, 100, 25]:
+        tree.add_node(v)
+    tree.remove_node(20)
+    def is_balanced(node):
+        if not node:
+            return True
+        if abs(node.balance_factor) > 1:
+            return False
+        return is_balanced(node.left) and is_balanced(node.right)
+    assert is_balanced(tree.root)
+
+def test_175_176_left_child_only():
+    tree = AVLTree()
+    for v in [50, 20, 100, 10]:
+        tree.add_node(v)
+    tree.remove_node(20)
+    def is_balanced(node):
+        if not node:
+            return True
+        if abs(node.balance_factor) > 1:
+            return False
+        return is_balanced(node.left) and is_balanced(node.right)
+    assert is_balanced(tree.root)
