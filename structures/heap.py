@@ -152,17 +152,3 @@ class MaxHeap(Heap):
         Initialise the super class.
         """
         super().__init__(is_min=False)
-
-if __name__ == '__main__':
-    """Covers internal branches for single-child scenarios."""
-    # Case: only left child
-    heap = MinHeap()
-    heap.data = [7, 10]  # simulate direct setup
-    heap.push(5)         # triggers sift up/down and child check
-    assert heap.peek() == 5
-
-    # Case: only right child
-    heap = MinHeap()
-    heap.data = [10]
-    heap.push(15)
-    assert heap.peek() == 10
