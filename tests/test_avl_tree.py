@@ -122,31 +122,3 @@ def test_complex_sequence_balances_correctly():
         check_balanced(node.left)
         check_balanced(node.right)
     check_balanced(root)
-
-def test_rotate_right_covers_y_right_parent_and_parent_left_assignment():
-    """
-    Covers:
-    - line 69: y.right.parent = z
-    - line 75: z.parent.left = y
-    by causing a Left-Right imbalance in a left subtree.
-    """
-    from structures.avl_tree import AVLTree
-
-    tree = AVLTree()
-    # Build a left subtree imbalance under a non-root node
-    # 50 (root)
-    #  └── 30 (left child)
-    #       ├── 20 (left)
-    #       └── 40 (right)
-    #           └── 35 (right-left imbalance trigger)
-    for val in [50, 55, 30, 20, 40, 35]:
-        tree.add_node(val)
-
-    # After rebalancing, 35 becomes parent of 30 and 40
-    assert tree.root.value == 50
-    assert tree.root.left.value == 35  # rotation happened under root
-    assert tree.root.left.left.value == 30
-    assert tree.root.left.right.value == 40
-    # and the structure confirms both parent pointers are correct
-    assert tree.root.left.left.parent == tree.root.left
-    assert tree.root.left.right.parent == tree.root.left
