@@ -92,7 +92,7 @@ class Heap:
         :param child: element index to sift.
         """
         parent = self.__get_parent(child)
-        if parent and self.__compare(self.data[child], self.data[parent]):
+        if parent is not None and self.__compare(self.data[child], self.data[parent]):
             self.__swap(child, parent)
             self.__sift_up(parent)
 
@@ -155,3 +155,15 @@ class MaxHeap(Heap):
         Initialise the super class.
         """
         super().__init__(is_min=False)
+
+if __name__ == '__main__':
+    heap = MinHeap()
+    values = [5, 3, 8, 1, 2]
+    for v in values:
+        heap.push(v)
+        print(heap.data)
+    # Popping should give sorted order for a min-heap
+    popped = [heap.pop() for _ in range(len(values))]
+    assert popped == sorted(values)
+    assert heap.isEmpty()
+    assert heap.size() == 0
