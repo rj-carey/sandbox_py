@@ -111,7 +111,7 @@ class Heap:
         elif not child_r and self.__compare(self.data[child_l], self.data[parent]):
             self.__swap(parent, child_l)
             self.__sift_down(child_l)
-        else:
+        elif child_l and child_r:
             child = min(child_l, child_r) if self.is_min else max(child_l, child_r)
             if self.__compare(self.data[child], self.data[parent]):
                 self.__swap(parent, child)
