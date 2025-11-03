@@ -12,6 +12,7 @@ def test_add_single_node():
     tree = AVLTree()
     tree.add_node(10)
     assert tree.root.value == 10
+    assert tree.find_node(10)
     assert tree.root.balance_factor == 0
     assert tree.root.get_height() == 1
 
@@ -36,7 +37,6 @@ def test_left_left_rotation():
     assert get_inorder_values(root) == [10, 20, 30]
     assert root.left.value == 10
     assert root.right.value == 30
-
 
 def test_right_right_rotation():
     """
@@ -87,12 +87,12 @@ def test_balance_factors_update_propagates():
     tree = AVLTree()
     for val in [10, 5, 15, 2, 7, 12, 17]:
         tree.add_node(val)
+        assert tree.find_node(val)
     root = tree.root
     # Should remain balanced after all insertions
     assert root.balance_factor in [-1, 0, 1]
     assert root.left.balance_factor in [-1, 0, 1]
     assert root.right.balance_factor in [-1, 0, 1]
-
 
 def test_parent_pointers_maintained():
     tree = AVLTree()
@@ -325,3 +325,45 @@ def test_175_176_left_child_only():
             return False
         return is_balanced(node.left) and is_balanced(node.right)
     assert is_balanced(tree.root)
+
+def test_remove_causes_right_left_rebalance():
+    """
+    Causes a Right–Left rotation during removal.
+    Structure before removal:
+            30
+              \
+               70
+              /  \
+            60    80
+           /
+         50
+
+    Removing 80 causes the subtree rooted at 70 to become right-heavy,
+    triggering a Right–Left rotation (lines in __rotate_left + __rotate_right).
+    """
+    from structures.avl_tree import AVLTree
+
+    tree = AVLTree()
+    for v in [30, 20, 70, 10, 60, 80, 50]:
+        tree.add_node(v)
+
+    # Verify precondition: root = 30, right child = 70
+    assert tree.root.value == 30
+    assert tree.root.right.value == 70
+
+    # Remove the rightmost node (80)
+    tree.remove_node(80)
+
+    # After rebalancing, the right subtree should now have 60 or 50 as root
+    right_subtree_root = tree.root.right
+    assert right_subtree_root.value in [50, 60, 70]
+
+    # Confirm tree remains balanced
+    def check_balanced(node):
+        if not node:
+            return True
+        if abs(node.balance_factor) > 1:
+            return False
+        return check_balanced(node.left) and check_balanced(node.right)
+
+    assert check_balanced(tree.root)
