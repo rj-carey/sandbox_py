@@ -112,7 +112,7 @@ class Heap:
             self.__swap(parent, child_l)
             self.__sift_down(child_l)
         elif child_l and child_r:
-            child = min(child_l, child_r) if self.is_min else max(child_l, child_r)
+            child = child_l if self.__compare(self.data[child_l], self.data[child_r]) else child_r
             if self.__compare(self.data[child], self.data[parent]):
                 self.__swap(parent, child)
                 self.__sift_down(child)
@@ -157,13 +157,12 @@ class MaxHeap(Heap):
         super().__init__(is_min=False)
 
 if __name__ == '__main__':
-    heap = MinHeap()
+    heap = MaxHeap()
     values = [5, 3, 8, 1, 2]
     for v in values:
         heap.push(v)
-        print(heap.data)
-    # Popping should give sorted order for a min-heap
+
+    # Popping should give reverse-sorted order for a max-heap
     popped = [heap.pop() for _ in range(len(values))]
-    assert popped == sorted(values)
+    assert popped == sorted(values, reverse=True)
     assert heap.isEmpty()
-    assert heap.size() == 0
