@@ -122,3 +122,83 @@ def test_complex_sequence_balances_correctly():
         check_balanced(node.left)
         check_balanced(node.right)
     check_balanced(root)
+
+# Below contains the same tests but with trees mirrored about the root.
+def test_mirror_left_left_rotation():
+    tree = AVLTree()
+    for val in [-30, -20, -10]:  # LL imbalance at 30
+        tree.add_node(val)
+    root = tree.root
+    assert root.value == -20  # Root should rebalance
+    assert get_inorder_values(root) == [-30, -20, -10]
+    assert root.left.value == -30
+    assert root.right.value == -10
+
+
+def test_mirror_right_right_rotation():
+    tree = AVLTree()
+    for val in [-10, -20, -30]:  # RR imbalance at 10
+        tree.add_node(val)
+
+    root = tree.root
+    assert root.value == -20
+    assert get_inorder_values(root) == [-30, -20, -10]
+    assert root.left.value == -30
+    assert root.right.value == -10
+
+
+def test_mirror_left_right_rotation():
+    tree = AVLTree()
+    for val in [-30, -10, -20]:  # LR case at 30
+        tree.add_node(val)
+    root = tree.root
+    assert root.value == -20
+    assert get_inorder_values(root) == [-30, -20, -10]
+    assert root.left.value == -30
+    assert root.right.value == -10
+
+
+def test_mirror_right_left_rotation():
+    tree = AVLTree()
+    for val in [-10, -30, -20]:  # RL case at 10
+        tree.add_node(val)
+    root = tree.root
+    assert root.value == -20
+    assert get_inorder_values(root) == [-30, -20, -10]
+    assert root.left.value == -30
+    assert root.right.value == -10
+
+
+def test_mirror_balance_factors_update_propagates():
+    tree = AVLTree()
+    for val in [-10, -5, -15, -2, -7, -12, -17]:
+        tree.add_node(val)
+    root = tree.root
+    assert root.balance_factor in [-1, 0, 1]
+    assert root.left.balance_factor in [-1, 0, 1]
+    assert root.right.balance_factor in [-1, 0, 1]
+
+
+def test_mirror_parent_pointers_maintained():
+    tree = AVLTree()
+    for val in [-10, -5, -15, -2, -7, -12, -17]:
+        tree.add_node(val)
+    root = tree.root
+    assert root.left.parent == root
+    assert root.right.parent == root
+
+
+def test_mirror_complex_sequence_balances_correctly():
+    tree = AVLTree()
+    vals = [-10, -20, -30, -40, -50, -25]
+    for v in vals:
+        tree.add_node(v)
+    root = tree.root
+    assert get_inorder_values(root) == sorted(vals)
+    def check_balanced(node):
+        if not node:
+            return
+        assert node.balance_factor in [-1, 0, 1]
+        check_balanced(node.left)
+        check_balanced(node.right)
+    check_balanced(root)
