@@ -103,11 +103,8 @@ class Heap:
         :param parent: element index to sift.
         """
         child_l, child_r = self.__get_children(parent)
-        if not (child_l or child_r):
+        if not child_l:
             return
-        elif not child_l and self.__compare(self.data[child_r], self.data[parent]):
-            self.__swap(parent, child_r)
-            self.__sift_down(child_r)
         elif not child_r and self.__compare(self.data[child_l], self.data[parent]):
             self.__swap(parent, child_l)
             self.__sift_down(child_l)

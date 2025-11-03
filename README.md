@@ -35,7 +35,7 @@ Implemented so far: <br> <!--✅⬜-->
 ✅ Dense Graph (Adjacency Matrix) <br>
 ✅ Binary Tree <br>
 ✅ AVL Tree <br>
-⬜ Heap (Min/Max) <br>
+✅ Heap (Min/Max) <br>
 ⬜ Hash Table
 
 Each module is self-contained and has associated tests in the `tests/` directory.
