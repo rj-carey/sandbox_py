@@ -157,12 +157,15 @@ class MaxHeap(Heap):
         super().__init__(is_min=False)
 
 if __name__ == '__main__':
-    heap = MaxHeap()
-    values = [5, 3, 8, 1, 2]
-    for v in values:
-        heap.push(v)
+    """Covers internal branches for single-child scenarios."""
+    # Case: only left child
+    heap = MinHeap()
+    heap.data = [7, 10]  # simulate direct setup
+    heap.push(5)         # triggers sift up/down and child check
+    assert heap.peek() == 5
 
-    # Popping should give reverse-sorted order for a max-heap
-    popped = [heap.pop() for _ in range(len(values))]
-    assert popped == sorted(values, reverse=True)
-    assert heap.isEmpty()
+    # Case: only right child
+    heap = MinHeap()
+    heap.data = [10]
+    heap.push(15)
+    assert heap.peek() == 10

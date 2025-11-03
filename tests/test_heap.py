@@ -88,8 +88,8 @@ def test_heap_with_one_child_cases():
     """Covers internal branches for single-child scenarios."""
     # Case: only left child
     heap = MinHeap()
-    heap.data = [10, 5]  # simulate direct setup
-    heap.push(7)         # triggers sift up/down and child check
+    heap.data = [7, 10]  # simulate direct setup
+    heap.push(5)         # triggers sift up/down and child check
     assert heap.peek() == 5
 
     # Case: only right child
