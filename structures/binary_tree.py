@@ -45,7 +45,7 @@ class BinaryTree:
         else:
             current_node = self.__root
             while current_node is not None:
-                if new_node.value == current_node.value:
+                if new_node == current_node:
                     raise ValueError("Node already exists.")
                 if new_node < current_node:
                     if current_node.left:
