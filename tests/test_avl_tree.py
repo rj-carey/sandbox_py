@@ -139,7 +139,7 @@ def test_rotate_right_covers_y_right_parent_and_parent_left_assignment():
     #       ├── 20 (left)
     #       └── 40 (right)
     #           └── 35 (right-left imbalance trigger)
-    for val in [50, 30, 20, 40, 35]:
+    for val in [50, 55, 30, 20, 40, 35]:
         tree.add_node(val)
 
     # After rebalancing, 35 becomes parent of 30 and 40
