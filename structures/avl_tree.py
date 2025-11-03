@@ -134,6 +134,17 @@ class AVLTree:
                 break
             current = current.parent
 
+    def __transplant(self, u, v):
+        """Helper method: replace subtree rooted at u with subtree rooted at v."""
+        if u.parent is None:
+            self.root = v
+        elif u == u.parent.left:
+            u.parent.left = v
+        else:
+            u.parent.right = v
+        if v:
+            v.parent = u.parent
+
     def remove_node(self, value):
         """
         Remove a node from the tree, ensuring AVL condition is retained.
@@ -142,20 +153,43 @@ class AVLTree:
 
         :raises ValueError: If the node is not present.
         """
-        if self.root is None:
+        node = self.root
+        while node and node.value != value:
+            if value < node.value:
+                node = node.left
+            else:
+                node = node.right
+        if node is None:
             raise ValueError("Node does not exist.")
+
+        if node.left is None and node.right is None:
+            # Case 1: no children
+            parent = node.parent
+            self.__transplant(node, None)
+        elif node.left is None:
+            # Case 2: only right child
+            parent = node.parent
+            self.__transplant(node, node.right)
+        elif node.right is None:
+            # Case 3: only left child
+            parent = node.parent
+            self.__transplant(node, node.left)
         else:
-            current_node = self.root
-            path = []
-            while current_node is not None:
-                path.append(current_node)
-                if current_node.value < value:
-                    current_node = current_node.right
-                elif current_node.value > value:
-                    current_node = current_node.left
-                else:
-                    #replace node
-                    #update bfs
-                    #rebalance
-                    pass
-            raise ValueError("Node does not exists.")
+            # Case 4: two children → find in-order successor
+            successor = node.right
+            while successor.left:
+                successor = successor.left
+            parent = successor.parent
+            if successor.parent != node:
+                self.__transplant(successor, successor.right)
+                successor.right = node.right
+                successor.right.parent = successor
+            self.__transplant(node, successor)
+            successor.left = node.left
+            successor.left.parent = successor
+
+        while parent:
+            parent.update_bf()
+            if abs(parent.balance_factor) > 1:
+                self.__rebalance(parent)
+            parent = parent.parent

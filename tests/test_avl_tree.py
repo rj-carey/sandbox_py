@@ -202,3 +202,100 @@ def test_mirror_complex_sequence_balances_correctly():
         check_balanced(node.left)
         check_balanced(node.right)
     check_balanced(root)
+
+def build_balanced_tree():
+    """
+    Helper: builds a perfectly balanced tree.
+                30
+              /    \
+            20      40
+           /  \    /  \
+         10  25  35  50
+    """
+    tree = AVLTree()
+    for val in [30, 20, 40, 10, 25, 35, 50]:
+        tree.add_node(val)
+    return tree
+
+def test_remove_from_empty_tree_raises():
+    tree = AVLTree()
+    with pytest.raises(ValueError, match="Node does not exist"):
+        tree.remove_node(10)
+
+def test_remove_leaf_node():
+    tree = build_balanced_tree()
+    tree.remove_node(10)  # remove leaf
+
+    # 10 should be gone
+    assert tree.root.left.left is None
+    # Root should remain same
+    assert tree.root.value == 30
+
+def test_remove_node_with_right_child():
+    tree = AVLTree()
+    for v in [10, 20, 30]:
+        tree.add_node(v)  # forms right-skewed tree
+    tree.remove_node(20)
+    # 10 -> 30 after rebalance
+    assert tree.root.value in [10, 20, 30]  # rebalanced tree valid
+    # 20 must not exist
+    with pytest.raises(ValueError):
+        tree.remove_node(20)
+
+def test_remove_node_with_left_child():
+    tree = AVLTree()
+    for v in [30, 20, 10]:
+        tree.add_node(v)
+    tree.remove_node(20)
+    # 10 or 30 is root depending on rebalance
+    assert tree.root.value in [10, 30]
+    # Ensure 20 gone
+    with pytest.raises(ValueError):
+        tree.remove_node(20)
+
+def test_remove_node_with_two_children():
+    tree = build_balanced_tree()
+    tree.remove_node(20)  # has left=10, right=25
+    # check replacement occurred correctly
+    found = tree.root.left
+    assert found.value in [10, 25]
+    assert tree.find_node(20) is None
+
+def test_remove_root_with_two_children():
+    tree = build_balanced_tree()
+    tree.remove_node(30)
+    # Root should update (successor 35 or 40 typically)
+    assert tree.root.value in [35, 40, 25]
+    # Old root gone
+    assert tree.find_node(30) is None
+
+def test_remove_until_empty():
+    tree = AVLTree()
+    for v in [10, 5, 15]:
+        tree.add_node(v)
+    for v in [5, 15, 10]:
+        tree.remove_node(v)
+    assert tree.root is None
+
+def test_rebalance_after_deletion():
+    tree = AVLTree()
+    for v in [50, 30, 70, 20, 40, 60, 80, 10]:
+        tree.add_node(v)
+
+    # This removal causes imbalance requiring rotation
+    tree.remove_node(80)
+
+    # Ensure tree is still balanced (no |bf| > 1)
+    def is_balanced(node):
+        if not node:
+            return True
+        if abs(node.balance_factor) > 1:
+            return False
+        return is_balanced(node.left) and is_balanced(node.right)
+
+    assert is_balanced(tree.root)
+
+def test_remove_nonexistent_node():
+    tree = build_balanced_tree()
+    with pytest.raises(ValueError, match="Node does not exist"):
+        tree.remove_node(999)
